@@ -1,0 +1,267 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "3.2.4",
+    "title": "Pede Já",
+    "description": "Cárdapio digital"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/cadastro": {
+      "post": {
+        "description": "Realiza o cadastro",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "Realiza o login",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "description": "Realiza o logout",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/{idR}/cardapio": {
+      "get": {
+        "description": "Lista todos os pratos",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "description": "Cria um novo prato",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/{idR}/cardapio/{idPr}": {
+      "get": {
+        "description": "Seleciona um prato",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idPr",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "description": "Atualiza o prato selecionado",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idPr",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deleta o prato selecionado",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idPr",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          }
+        }
+      }
+    },
+    "/{idR}/pedidos": {
+      "get": {
+        "description": "Lista todos os pedidos",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deleta todos os pedidos que estão finalizados",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          }
+        }
+      }
+    },
+    "/{idR}/pedidos/{idP}": {
+      "get": {
+        "description": "Seleciona um pedido",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idP",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "description": "Atualiza o pedido selecionado",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idP",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deleta o pedido selecionado se estiver finalizado",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idP",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          }
+        }
+      }
+    },
+    "/{idR}/cliente/realizar_pedido": {
+      "post": {
+        "description": "Realiza o pedido",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    }
+  }
+}
