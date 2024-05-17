@@ -6,9 +6,10 @@ class PratoRepository {
         try {            
             return await db.pratos.findAll({
                 where: { idRestaurante: idR },
-                include: {
-                    model: db.ingredientes
-                }
+                include: [
+                    {model: db.ingredientes},
+                    {model: db.imagemPratos}
+                ]
               })
               
         } catch (error) {
@@ -19,11 +20,12 @@ class PratoRepository {
 
     async create(prato, idR) {
         try {
+            const imagem = await db.imagemPratos.create({imagem: prato.imagem})
             const novoPrato = await db.pratos.create({
                 idRestaurante: idR,
                 nome: prato.nome,
                 valor: prato.valor,
-                imagem: prato.imagem
+                idImgPrato: imagem.idImgPrato
             })
 
             for(let i = 0; i < prato.ingredientes.length; i++) {
