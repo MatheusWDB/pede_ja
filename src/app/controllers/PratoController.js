@@ -56,7 +56,6 @@ class PratoController {
     async update(req, res) {  
         const idPr = req.params.idPr
         const prato = req.body
-        console.log(prato.ingredientes.length)
         const resposta = await PratoRepository.update(prato, idPr)
         res.status(200).send(resposta)
     }
