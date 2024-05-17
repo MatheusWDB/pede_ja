@@ -9,14 +9,14 @@ class PedidoController {
         
         pedidos = pedidos.map(pedido => {
             let valorTotal = 0;
-            let pratos = pedido.pedido_prato.map(prato => {
-                valorTotal += parseFloat(prato.valor);
+            let pratos = pedido.pratos.map(prato => {
+                valorTotal += parseFloat(prato.valor*prato.pedidoPratos.quantidade);
                 return {
                     nome: prato.nome,
                     valor: prato.valor,
                     imagem: prato.imagem,
-                    quantidade: prato.prato_pedidoPrato.quantidade,
-                    observacao: prato.prato_pedidoPrato.observacao
+                    quantidade: prato.pedidoPratos.quantidade,
+                    observacao: prato.pedidoPratos.observacao
                 }
             })            
             return {
@@ -52,15 +52,15 @@ class PedidoController {
                 telefone: pedido.cliente.telefone,
                 mesa: pedido.cliente.mesa
             },
-            pratos: pedido.pedido_prato.map(prato => {
-                valorTotal += parseFloat(prato.valor);
+            pratos: pedido.pratos.map(prato => {
+                valorTotal += parseFloat(prato.valor*prato.pedidoPratos.quantidade);
                 return {
                     nome: prato.nome,
                     valor: prato.valor,
                     imagem: prato.imagem,
-                    quantidade: prato.prato_pedidoPrato.quantidade,
-                    observacao: prato.prato_pedidoPrato.observacao,
-                    ingredientes: prato.prato_ingrediente.map(ingrediente => ingrediente.ingrediente)
+                    quantidade: prato.pedidoPratos.quantidade,
+                    observacao: prato.pedidoPratos.observacao,
+                    ingredientes: prato.ingredientes.map(ingrediente => ingrediente.ingrediente)
                 }
             }),
             valorTotal: valorTotal.toFixed(2)

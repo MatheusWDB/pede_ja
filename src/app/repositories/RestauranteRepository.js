@@ -1,23 +1,39 @@
 const db = require('./../../db/models')
+const { Op } = require('sequelize');
+
 class RestauranteRepository {
     
-    async verifyCnpj(cnpj) {
+    async verify(cadastrado) {
         try {
-            return await db.restaurantes.findOne({ where: { cnpj: cnpj } })
+            const restaurante = await db.restaurantes.findOne({ 
+                where: { 
+                    [Op.or]: [
+                        { cnpj: cadastrado.cnpj },
+                        { senha: cadastrado.senha },
+                        { email: cadastrado.email }
+                        
+                    ]
+                }
+            })
+
+            const telefone = await db.telefonesRestaurante.findOne({
+                where: { telefone: cadastrado.telefone }
+            })
+
+            const resultado = {
+                cnpj: restaurante ? restaurante.cnpj : null,
+                senha: restaurante ? restaurante.senha : null,
+                email: restaurante ? restaurante.email : null,                
+                telefone: telefone ? telefone.telefone : null
+              };
+          
+            return resultado;
 
         } catch (error) {
+            console.error(error)
             throw new Error('Erro ao verificar os dados');
         }
     } 
-    
-    async verifyEmail(email) {
-        try {
-            return await db.restaurantes.findOne({ where: { email: email } });
-            
-        } catch (error) {
-            throw new Error('Erro ao verificar os dados');
-        }
-    }
 
     async findId(cnpj) {
         try {
@@ -26,6 +42,7 @@ class RestauranteRepository {
             return idR.idRestaurante
             
         } catch (error) {
+            console.error(error)
             throw new Error('Erro ao verificar os dados')
         }
     }

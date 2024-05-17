@@ -5,8 +5,9 @@ class PratoController {
     async list(req, res) {        
         const idR = req.params.idR
         let pratos = await PratoRepository.findAll(idR)
+        
         pratos = pratos.map(pratos => {
-            let ingredientes = pratos.prato_ingrediente.reduce((acc, ingrediente) => {
+            let ingredientes = pratos.ingredientes.reduce((acc, ingrediente) => {
                 acc.push( ingrediente.ingrediente
                 );
                 return acc;
@@ -33,7 +34,7 @@ class PratoController {
         const idPr = req.params.idPr
         let prato = await PratoRepository.findById(idPr)
         function mapearPrato() {
-            let ingredientes = prato.prato_ingrediente.reduce((acc, ingrediente) => {
+            let ingredientes = prato.ingredientes.reduce((acc, ingrediente) => {
                 acc.push( ingrediente.ingrediente
                 );
                 return acc;

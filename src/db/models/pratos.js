@@ -4,44 +4,26 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class pratos extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of DataTypes lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+    
     static associate(models) {
-      this.hasMany(models.pedidoPratos, {
-        as: 'prato_pedidoPrato', 
-        foreignKey: { 
-          name: 'idPrato',
-          allowNull: false
-        }
-      })
+
       this.belongsToMany(models.pedidos, { 
         through: models.pedidoPratos,
-        as: 'prato_pedido', 
         foreignKey: { 
           name: 'idPrato',
           allowNull: false
         }
       })
-      
+
       this.belongsToMany(models.ingredientes, { 
-        through: models.pratoIngredientes,
-        as: 'prato_ingrediente', 
+        through: models.pratoIngredientes, 
         foreignKey: { 
           name: 'idPrato',
           allowNull: false
         }
       })
-      this.hasMany(models.pratoIngredientes, {
-        as: 'prato_pratoIngrediente', 
-        foreignKey: { 
-          name: 'idPrato',
-          allowNull: false
-        }
-      })
-      this.belongsTo(models.restaurantes, { 
+
+      this.belongsTo(models.restaurantes, {
         foreignKey: { 
           name: 'idRestaurante',
           allowNull: false
@@ -74,8 +56,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DECIMAL(10,2)
     },
-    imagem: {
-      type: DataTypes.BLOB
+    idImgPrato: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'imagemPratos',
+        key: 'idImgPrato'
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     }
   }, {
     sequelize,

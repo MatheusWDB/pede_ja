@@ -7,19 +7,16 @@ class PedidoRepository {
             return await db.pedidos.findAll({
                 include: [
                     {
-                        model: db.clientes,
+                        model: db.clientes
                     },
                     {
                         model: db.pratos,
-                        as: 'pedido_prato',
                         where: { idRestaurante: idR }, 
                         through: {
-                            model: db.pedidoPratos,
-                            as: 'prato_pedidoPrato'
+                            model: db.pedidoPratos
                         },
                         include: {
-                            model: db.ingredientes,
-                            as: 'prato_ingrediente'
+                            model: db.ingredientes
                         }
                     }                   
                 ]                                
@@ -36,7 +33,6 @@ class PedidoRepository {
             await db.pedidos.destroy({
                 include: [{
                     model: db.pratos,
-                    as: 'pedido_prato',
                     where: { idRestaurante: idR }
                 }],
                 where: { finalizado: 'V' } 
@@ -52,17 +48,16 @@ class PedidoRepository {
         try {
             return await db.pedidos.findOne({
                 include: [
-                    {model: db.clientes},
+                    {
+                        model: db.clientes
+                    },
                     {
                         model: db.pratos,
-                        as: 'pedido_prato',
                         through: {
-                            model: db.pedidoPratos,
-                            as: 'prato_pedidoPrato'
+                            model: db.pedidoPratos
                         },
                         include: {
-                            model: db.ingredientes,
-                            as: 'prato_ingrediente'
+                            model: db.ingredientes
                         }
                     }                   
                 ],
@@ -77,10 +72,9 @@ class PedidoRepository {
     async update(idP) {
         try {
             const pedido = await db.pedidos.findOne({
-                include: [{
-                    model: db.pratos,
-                    as: 'pedido_prato'
-                }],
+                include: {
+                    model: db.pratos
+                },
                 where: { idPedido: idP }
             })
             pedido.finalizado = pedido.finalizado === 'V' ? 'F' : 'V';
@@ -96,10 +90,9 @@ class PedidoRepository {
     async deleteById(idP) {
         try {
             const pedido = await db.pedidos.findOne({
-                include: [{
-                    model: db.pratos,
-                    as: 'pedido_prato'
-                }],
+                include: {
+                    model: db.pratos
+                },
                 where: { 
                     idPedido: idP,
                     finalizado: 'V'                    
@@ -142,7 +135,6 @@ class PedidoRepository {
             const lastPedido = await db.pedidos.findOne({
                 include: [{
                     model: db.pratos,
-                    as: 'pedido_prato',
                     where: { idRestaurante: idR }
                 }],
                 order: [[ 'numeroPedido', 'DESC' ]]

@@ -1,4 +1,5 @@
 npx sequelize-cli migration:generate --name create-teste
+npx sequelize-cli migration:generate --name alter-restaurantes
 
 
 

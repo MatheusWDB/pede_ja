@@ -27,8 +27,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      logo: {
-        type: Sequelize.BLOB
+      idImgRestaurante: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'imagemRestaurantes',
+          key: 'idImgRestaurante'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
       },
       createdAt: {
         allowNull: false,

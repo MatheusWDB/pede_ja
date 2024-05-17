@@ -7,8 +7,7 @@ class PratoRepository {
             return await db.pratos.findAll({
                 where: { idRestaurante: idR },
                 include: {
-                    model: db.ingredientes,
-                    as: 'prato_ingrediente'
+                    model: db.ingredientes
                 }
               })
               
@@ -51,8 +50,7 @@ class PratoRepository {
                     idPrato: idPr
                 },
                 include: {
-                    model: db.ingredientes,
-                    as: 'prato_ingrediente'
+                    model: db.ingredientes
                 }
             })
 

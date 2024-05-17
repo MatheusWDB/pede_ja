@@ -27,8 +27,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL(10,2)
       },
-      imagem: {
-        type: Sequelize.BLOB
+      idImgPrato: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'imagemPratos',
+          key: 'idImgPrato'
+        },
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE'
       },
       createdAt: {
         allowNull: false,
