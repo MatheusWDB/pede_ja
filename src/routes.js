@@ -16,6 +16,7 @@ router.post('/recuperar_senha', RestauranteController.recover)
 
         //Perfil
 //router.get('/:idR', RestauranteController.show)
+router.update('/:idR', RestauranteController.update)
                 
                 //PRATOS
 
