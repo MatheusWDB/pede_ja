@@ -26,7 +26,6 @@ class PratoController {
     async store(req, res) {  
         const idR = req.params.idR
         const prato =  req.body
-        console.log(prato)
         const resposta = await PratoRepository.create(prato, idR)
         
         res.status(201).send(resposta)
