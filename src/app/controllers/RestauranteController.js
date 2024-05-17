@@ -52,6 +52,13 @@ class RestauranteController {
         res.status(200).end()
     }
 
+    async update(req, res) {  
+        const idR = req.params.idR
+        const restaurante = req.body
+        const resposta = await RestauranteRepository.update(restaurante, idR)
+        res.status(200).send(resposta)
+    }
+    
     /*async show(req, res){
         const id = req.params.idR
         const row = await RestauranteRepository.findById(id)
