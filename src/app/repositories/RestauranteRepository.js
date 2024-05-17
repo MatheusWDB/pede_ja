@@ -66,6 +66,33 @@ class RestauranteRepository {
         }
     }
 
+    async update(restaurante, idR) {
+        try {
+            const [imagem, created] = await db.imagemRestaurantes.findOrCreate({
+                where: { logo: restaurante.imagem},
+                defaults: { logo: restaurante.imagem}
+            })
+
+            if (!created) {
+                await imagem.update({ logo: restaurante.imagem });
+            }
+            
+            await db.restaurantes.upsert(restaurante, {
+                nome: restaurante.nome,
+                email: restaurante.email,
+                senha: restaurante.senha,
+                idImgRestaurante: imagem.idImgRestaurante
+                where: { idRestaurante: idR }
+            })
+        
+            return("Restaurante atualizado")
+
+        } catch (error) {
+            console.error(error)
+            throw new Error('Não foi possível atualizar!');
+        }
+    }
+    
     /*async findById(id) {
         try {
             return await Restaurante.findOne({ where: { idRestaurante: id } });
