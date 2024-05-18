@@ -23,17 +23,17 @@ class RestauranteController {
     }
     
     async login(req, res){
-        const login = { cnpj: req.body.cnpj, senha: req.body.senha, email: null, telefone: null}
+        const login = { cnpj: null, senha: req.body.senha, email: req.body.email, telefone: null}
         const verificar = await RestauranteRepository.verify(login)
-        if(verificar.cnpj === null) {
-            return res.status(400).json('Cnpj não cadastrado!')
+        if(verificar.email === null) {
+            return res.status(400).json('Email não cadastrado!')
         } else if (login.senha !== verificar.senha){
             return res.status(401).json('Senha incorreta!')
         }
 
         const idR = await RestauranteRepository.findId(login.cnpj)
         const token = { idRestaurante: idR}
-        res.status(202).json({ auth: true, token })
+        res.status(202).json( token )
     }    
 
     async recover(req, res){

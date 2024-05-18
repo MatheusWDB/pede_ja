@@ -48,13 +48,13 @@ class PratoRepository {
 
     async findById(idPr) {
         try {
-            return await db.pratos.findOne({ where: { 
-                    idPrato: idPr
-                },
-                include: {
-                    model: db.ingredientes
-                }
-            })
+            return await db.pratos.findOne({
+                where: { idPrato: idPr },
+                include: [
+                    {model: db.ingredientes},
+                    {model: db.imagemPratos}
+                ]
+              })
 
         } catch (error) {
             throw new Error('Não foi possível localizar!');

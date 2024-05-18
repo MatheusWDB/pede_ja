@@ -9,9 +9,8 @@ class RestauranteRepository {
                 where: { 
                     [Op.or]: [
                         { cnpj: cadastrado.cnpj },
+                        { email: cadastrado.email },
                         { senha: cadastrado.senha },
-                        { email: cadastrado.email }
-                        
                     ]
                 }
             })

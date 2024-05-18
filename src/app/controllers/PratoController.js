@@ -11,13 +11,16 @@ class PratoController {
                 );
                 return acc;
             }, []);
-            
+            let imagemData = null;
+            if (pratos.imagemPrato && pratos.imagemPrato.imagem) {
+                imagemData = Buffer.from(pratos.imagemPrato.imagem).toString('base64');
+            }
             return {
                 idPrato: pratos.idPrato,
                 nome: pratos.nome,
                 valor: pratos.valor,
                 ingredientes: ingredientes,
-                imagem: pratos.imagemPrato
+                imagem: imagemData
             }
         })
         res.status(200).json(pratos)
@@ -40,12 +43,17 @@ class PratoController {
                 );
                 return acc;
             }, []);
+            let imagemData = null;
+            if (prato.imagemPrato && prato.imagemPrato.imagem) {
+                imagemData = Buffer.from(prato.imagemPrato.imagem).toString('base64');
+            }
             return {
                 idPrato: prato.idPrato,
                 nome: prato.nome,
                 valor: prato.valor,
                 imagem: prato.imagem,
-                ingredientes: ingredientes
+                ingredientes: ingredientes,
+                imagem: imagemData
             }
         }
 
