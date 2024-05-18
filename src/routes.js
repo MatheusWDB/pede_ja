@@ -27,7 +27,7 @@ router.get('/:idR/cardapio', PratoController.list)
 router.post('/:idR/cardapio', PratoController.store)
 
         //Prato selecionado
-router.get('/:idR/cardapio/:idPr', PratoController.show)
+/*router.get('/:idR/cardapio/:idPr', PratoController.show)*/
 router.put('/:idR/cardapio/:idPr', PratoController.update)
 router.delete('/:idR/cardapio/:idPr', PratoController.delete)
 

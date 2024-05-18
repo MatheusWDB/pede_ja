@@ -13,7 +13,7 @@ class PratoController {
             }, []);
             let imagemData = null;
             if (pratos.imagemPrato && pratos.imagemPrato.imagem) {
-                imagemData = Buffer.from(pratos.imagemPrato.imagem).toString('base64');
+                imagemData = pratos.imagemPrato.imagem.toString()
             }
             return {
                 idPrato: pratos.idPrato,
@@ -45,7 +45,7 @@ class PratoController {
             }, []);
             let imagemData = null;
             if (prato.imagemPrato && prato.imagemPrato.imagem) {
-                imagemData = Buffer.from(prato.imagemPrato.imagem).toString('base64');
+                imagemData = prato.imagemPrato.imagem.toString();
             }
             return {
                 idPrato: prato.idPrato,

@@ -97,8 +97,10 @@ class PratoRepository {
 
     async delete(idPr) {
         try {
+            const idImg = await db.pratos.findOne({ where: { idPrato: idPr }})
             await db.pratos.destroy({ where: { idPrato: idPr } })
-
+            if (idImg) await db.imagemPratos.destroy({where: { idImgPrato: idImg.idImgPrato}})
+            
             return("Prato deletado")
 
         } catch (error) {
