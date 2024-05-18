@@ -5,19 +5,19 @@ class PratoController {
     async list(req, res) {        
         const idR = req.params.idR
         let pratos = await PratoRepository.findAll(idR)
-        
         pratos = pratos.map(pratos => {
             let ingredientes = pratos.ingredientes.reduce((acc, ingrediente) => {
                 acc.push( ingrediente.ingrediente
                 );
                 return acc;
             }, []);
+            
             return {
                 idPrato: pratos.idPrato,
                 nome: pratos.nome,
                 valor: pratos.valor,
-                imagem: pratos.imagem,
-                ingredientes: ingredientes
+                ingredientes: ingredientes,
+                imagem: pratos.imagemPrato
             }
         })
         res.status(200).json(pratos)

@@ -29,6 +29,13 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false
         }
     })
+      
+      this.belongsTo(models.imagemPratos, {
+        foreignKey: { 
+          name: 'idImgPrato',
+          allowNull: false
+        }
+    })
     }
   }
   pratos.init({

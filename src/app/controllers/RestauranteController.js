@@ -4,7 +4,7 @@ class RestauranteController {
     
     async register(req, res){
         const cadastro = req.body
-        const verificar = await RestauranteRepository.verifyRegister(cadastro)
+        const verificar = await RestauranteRepository.verify(cadastro)
         if(verificar) {
             if (verificar.cnpj === cadastro.cnpj){
                 return res.status(400).send('Cnpj já cadastrado!')

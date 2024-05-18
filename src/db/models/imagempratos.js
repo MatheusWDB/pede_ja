@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   class imagemPratos extends Model {
     
     static associate(models) {
-      this.belongsTo(models.pratos, {
+      
+      this.hasMany(models.pratos, {
         foreignKey: {
           name: "idImgPrato",
           allowNull: false
