@@ -47,15 +47,23 @@ class RestauranteController {
         res.status(200).send(verificar.email)
     }
         
-    async logout(req, res){
+    /*async logout(req, res){
         blacklist.push(req.headers['x-access-token'])
         res.status(200).end()
     }
+    */
 
-    async update(req, res) {  
+    async updateRestaurante(req, res) {  
         const idR = req.params.idR
         const restaurante = req.body
-        const resposta = await RestauranteRepository.update(restaurante, idR)
+        const resposta = await RestauranteRepository.updateRestaurante(restaurante, idR)
+        res.status(200).send(resposta)
+    }
+
+    async updateLogo(req, res) {
+        const idR = req.params.idR
+        const logo = req.body
+        const resposta = await RestauranteRepository.updateLogo(logo, idR)
         res.status(200).send(resposta)
     }
     

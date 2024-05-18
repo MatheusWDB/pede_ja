@@ -66,27 +66,37 @@ class RestauranteRepository {
         }
     }
 
-    async update(restaurante, idR) {
-        try {
-            const [imagem, created] = await db.imagemRestaurantes.findOrCreate({
-                where: { logo: restaurante.imagem},
-                defaults: { logo: restaurante.imagem}
-            })
-
-            if (!created) {
-                await imagem.update({ logo: restaurante.imagem });
-            }
-            
-            await db.restaurantes.upsert(restaurante, {
-                nome: restaurante.nome,
-                email: restaurante.email,
-                senha: restaurante.senha,
-                idImgRestaurante: imagem.idImgRestaurante
+    async updateRestaurante(restaurante, idR) {
+        try {            
+            await db.restaurantes.update(restaurante, {
                 where: { idRestaurante: idR }
             })
         
             return("Restaurante atualizado")
 
+        } catch (error) {
+            console.error(error)
+            throw new Error('Não foi possível atualizar!');
+        }
+    }
+    
+    async updateLogo(logo, idR) {
+        try {            
+            const restaurante = await db.restaurantes.findByPk(idR)
+            
+            let imagem = await db.imagemRestaurantes.findByPk(restaurante.idImgRestaurante)
+            
+            if (imagem) {
+                imagem.logo = logo
+                await imagem.save
+                return("Logo adicionada")
+            } else {
+                imagem = await imagemRestaurantes.create({ logo: logo })
+                restaurante.idImgRestaurante = imagem.idImgRestaurante
+                await restaurante.save()
+                return("Logo atualizada")
+            }
+        
         } catch (error) {
             console.error(error)
             throw new Error('Não foi possível atualizar!');
