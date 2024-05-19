@@ -9,8 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       
       this.hasMany(models.pratos, {
         foreignKey: {
-          name: "idImgPrato",
-          allowNull: false
+          name: "idImgPrato"
         }
       })
     }
@@ -22,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       type: DataTypes.INTEGER
     },
-    imagem: DataTypes.STRING
+    imagem: DataTypes.BLOB
   }, {
     sequelize,
     modelName: 'imagemPratos',

@@ -31,9 +31,8 @@ class RestauranteController {
             return res.status(401).json('Senha incorreta!')
         }
 
-        const idR = await RestauranteRepository.findId(login.cnpj)
-        const token = { idRestaurante: idR}
-        res.status(202).json( token )
+        const idR = await RestauranteRepository.findId(login.email)
+        res.status(202).json( {idRestaurante: idR} )
     }    
 
     async recover(req, res){

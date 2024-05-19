@@ -34,9 +34,9 @@ class RestauranteRepository {
         }
     } 
 
-    async findId(cnpj) {
+    async findId(email) {
         try {
-            const idR = await db.restaurantes.findOne({where: {cnpj: cnpj}})
+            const idR = await db.restaurantes.findOne({where: {email: email}})
 
             return idR.idRestaurante
             

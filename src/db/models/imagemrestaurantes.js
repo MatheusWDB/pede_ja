@@ -8,8 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.restaurantes, {
         foreignKey: {
-          name: "idImgRestaurante",
-          allowNull: false
+          name: "idImgRestaurante"
         }
       })
     }

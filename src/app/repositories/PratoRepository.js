@@ -20,21 +20,17 @@ class PratoRepository {
 
     async create(prato, idR) {
         try {
+            prato = {...prato, idRestaurante: idR}
             let novoPrato = {}
-            if (prato.imagem) {
+            
+            if (prato.imagem !== null) {
                 const imagem = await db.imagemPratos.create({ imagem: prato.imagem })
-                
-                novoPrato = await db.pratos.create({
-                    idRestaurante: idR,
-                    nome: prato.nome,
-                    valor: prato.valor,
-                    idImgPrato: imagem.idImgPrato
-                })
+                prato = {...prato, idImgPrato: imagem.idImgPrato}
+                novoPrato = await db.pratos.create(prato)
             } else {
-                novoPrato = await db.pratos.create({
-                    idRestaurante: idR,
-                    prato
-                })
+                delete prato.imagem
+                console.log(prato)
+                novoPrato = await db.pratos.create(prato)
             }
             
             for(let i = 0; i < prato.ingredientes.length; i++) {

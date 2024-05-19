@@ -33,7 +33,6 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.imagemPratos, {
         foreignKey: { 
           name: 'idImgPrato',
-          allowNull: false
         }
     })
     }
