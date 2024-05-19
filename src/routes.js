@@ -27,7 +27,7 @@ router.get('/:idR/cardapio', PratoController.list)
 router.post('/:idR/cardapio', PratoController.store)
 
         //Prato selecionado
-/*router.get('/:idR/cardapio/:idPr', PratoController.show)*/
+//router.get('/:idR/cardapio/:idPr', PratoController.show)
 router.put('/:idR/cardapio/:idPr', PratoController.update)
 router.delete('/:idR/cardapio/:idPr', PratoController.delete)
 
@@ -35,10 +35,10 @@ router.delete('/:idR/cardapio/:idPr', PratoController.delete)
 
         //Pedidos
 router.get('/:idR/pedidos',  PedidoController.list)
-router.delete('/:idR/pedidos',  PedidoController.delete)
+//router.delete('/:idR/pedidos',  PedidoController.delete)
 
         //Pedido selecionado
-router.get('/:idR/pedidos/:idP',  PedidoController.show)
+//router.get('/:idR/pedidos/:idP',  PedidoController.show)
 router.put('/:idR/pedidos/:idP',  PedidoController.update)
 router.delete('/:idR/pedidos/:idP',  PedidoController.deleteById)
 

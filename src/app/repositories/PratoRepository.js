@@ -20,14 +20,23 @@ class PratoRepository {
 
     async create(prato, idR) {
         try {
-            const imagem = await db.imagemPratos.create({imagem: prato.imagem})
-            const novoPrato = await db.pratos.create({
-                idRestaurante: idR,
-                nome: prato.nome,
-                valor: prato.valor,
-                idImgPrato: imagem.idImgPrato
-            })
-
+            let novoPrato = {}
+            if (prato.imagem) {
+                const imagem = await db.imagemPratos.create({ imagem: prato.imagem })
+                
+                novoPrato = await db.pratos.create({
+                    idRestaurante: idR,
+                    nome: prato.nome,
+                    valor: prato.valor,
+                    idImgPrato: imagem.idImgPrato
+                })
+            } else {
+                novoPrato = await db.pratos.create({
+                    idRestaurante: idR,
+                    prato
+                })
+            }
+            
             for(let i = 0; i < prato.ingredientes.length; i++) {
                 let [novoIngrediente] = await db.ingredientes.findOrCreate({
                     where: { ingrediente: prato.ingredientes[i] }
@@ -46,27 +55,26 @@ class PratoRepository {
         }
     }
 
-    async findById(idPr) {
-        try {
-            return await db.pratos.findOne({
-                where: { idPrato: idPr },
-                include: [
-                    {model: db.ingredientes},
-                    {model: db.imagemPratos}
-                ]
-              })
-
-        } catch (error) {
-            throw new Error('Não foi possível localizar!');
-        }
-    }
-
     async update(prato, idPr) {
         try {
+            
+            const pratoExistente = await db.pratos.findOne({ where: { idPrato: idPr } });
+
+            if (pratoExistente && pratoExistente.idImgPrato) {
+                await db.imagemPratos.destroy({ where: { idImgPrato: pratoExistente.idImgPrato } });
+            }
+    
+            if (prato.imagem) {
+                const imagem = await db.imagemPratos.create({ imagem: prato.imagem });
+    
+                await db.pratos.update({ idImgPrato: imagem.idImgPrato }, {
+                    where: { idPrato: idPr }
+                });
+            }
+            
             await db.pratos.update(prato, {
                 where: { idPrato: idPr }
-            })
-            
+            })         
             await db.pratoIngredientes.destroy({
                 where: { idPrato: idPr }
             })
@@ -107,6 +115,21 @@ class PratoRepository {
             throw new Error('Não foi possível deletar!');
         }
     }
+    
+    /*async findById(idPr) {
+        try {
+            return await db.pratos.findOne({
+                where: { idPrato: idPr },
+                include: [
+                    {model: db.ingredientes},
+                    {model: db.imagemPratos}
+                ]
+              })
+
+        } catch (error) {
+            throw new Error('Não foi possível localizar!');
+        }
+    }*/
 }
 
 module.exports = new PratoRepository()

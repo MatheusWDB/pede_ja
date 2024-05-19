@@ -87,7 +87,7 @@ class RestauranteRepository {
             
             if (imagem) {
                 imagem.logo = logo
-                await imagem.save
+                await imagem.save()
                 return("Logo adicionada")
             } else {
                 imagem = await imagemRestaurantes.create({ logo: logo })

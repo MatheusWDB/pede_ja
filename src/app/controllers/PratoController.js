@@ -33,8 +33,21 @@ class PratoController {
         
         res.status(201).send(resposta)
     }
+    
+    async update(req, res) {  
+        const idPr = req.params.idPr
+        const prato = req.body
+        const resposta = await PratoRepository.update(prato, idPr)
+        res.status(200).send(resposta)
+    }
 
-    async show(req, res) {
+    async delete(req, res) { 
+        const idPr = req.params.idPr
+        const resposta = await PratoRepository.delete(idPr)
+        res.status(202).send(resposta)        
+    }
+    
+    /*async show(req, res) {
         const idPr = req.params.idPr
         let prato = await PratoRepository.findById(idPr)
         function mapearPrato() {
@@ -59,20 +72,7 @@ class PratoController {
 
         prato = mapearPrato(prato)
         res.status(200).json(prato)
-    }
-
-    async update(req, res) {  
-        const idPr = req.params.idPr
-        const prato = req.body
-        const resposta = await PratoRepository.update(prato, idPr)
-        res.status(200).send(resposta)
-    }
-
-    async delete(req, res) { 
-        const idPr = req.params.idPr
-        const resposta = await PratoRepository.delete(idPr)
-        res.status(202).send(resposta)        
-    }
+    }*/
 }
 
 module.exports = new PratoController()
