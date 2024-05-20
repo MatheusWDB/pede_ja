@@ -1,11 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "3.2.4",
+    "version": "1.0.0",
     "title": "Pede Já",
-    "description": "Cárdapio digital"
+    "description": "Cardápio digital"
   },
-  "host": "localhost:3000",
+  "host": "https://pede-ja.onrender.com",
   "basePath": "/",
   "schemes": [
     "http"
@@ -13,7 +13,34 @@
   "paths": {
     "/cadastro": {
       "post": {
-        "description": "Realiza o cadastro",
+        "description": "Registra um novo estabelecimento",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string"
+                },
+                "cnpj": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "senha": {
+                  "type": "string"
+                },
+                "telefone": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""
@@ -23,88 +50,135 @@
     },
     "/login": {
       "post": {
-        "description": "Realiza o login",
-        "responses": {
-          "default": {
-            "description": ""
+        "description": "Reliza o login",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "senha": {
+                  "type": "string"
+                }
+              }
+            }
           }
-        }
-      }
-    },
-    "/logout": {
-      "post": {
-        "description": "Realiza o logout",
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idRestaurante": {
+                  "type": "integer"
+                }
+              }
+            }
           }
         }
       }
     },
     "/{idR}/cardapio": {
       "get": {
-        "description": "Lista todos os pratos",
+        "description": "Lista todos os pratos do restaurante",
         "parameters": [
           {
             "name": "idR",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "idPrato": {
+                    "type": "integer"
+                  },
+                  "nome": {
+                    "type": "string"
+                  },
+                  "valor": {
+                    "type": "number",
+                    "format": "float"
+                  },
+                  "ingredientes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "imagem": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Adiciona um novo prato ao restaurante",
+        "parameters": [
+          {
+            "name": "idR",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string"
+                },
+                "valor": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "ingredientes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "imagem": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "description": "Cria um novo prato",
-        "parameters": [
-          {
-            "name": "idR",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
           }
         }
       }
     },
     "/{idR}/cardapio/{idPr}": {
-      "get": {
-        "description": "Seleciona um prato",
-        "parameters": [
-          {
-            "name": "idR",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "idPr",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "put": {
         "description": "Atualiza o prato selecionado",
         "parameters": [
           {
             "name": "idR",
             "in": "path",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
@@ -112,6 +186,33 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "type": "object",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string"
+                },
+                "valor": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "ingredientes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "imagem": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -126,7 +227,7 @@
           {
             "name": "idR",
             "in": "path",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
@@ -145,68 +246,75 @@
     },
     "/{idR}/pedidos": {
       "get": {
-        "description": "Lista todos os pedidos",
+        "description": "Lita todos os pedidos do restaurante",
         "parameters": [
           {
             "name": "idR",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "description": "Deleta todos os pedidos que estão finalizados",
-        "parameters": [
-          {
-            "name": "idR",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Accepted"
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "idPedido": {
+                    "type": "integer"
+                  },
+                  "numeroPedido": {
+                    "type": "integer"
+                  },
+                  "finalizado": {
+                    "type": "string"
+                  },
+                  "mesa": {
+                    "type": "integer"
+                  },
+                  "pratos": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "nome": {
+                          "type": "string"
+                        },
+                        "valor": {
+                          "type": "number",
+                          "format": "float"
+                        },
+                        "quantidade": {
+                          "type": "integer"
+                        },
+                        "observacao": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "valorTotal": {
+                    "type": "number",
+                    "format": "float"
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/{idR}/pedidos/{idP}": {
-      "get": {
-        "description": "Seleciona um pedido",
-        "parameters": [
-          {
-            "name": "idR",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "idP",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "put": {
-        "description": "Atualiza o pedido selecionado",
+        "description": "Atualiza o status do pedido selecionado",
         "parameters": [
           {
             "name": "idR",
             "in": "path",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
@@ -228,7 +336,7 @@
           {
             "name": "idR",
             "in": "path",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
@@ -253,7 +361,45 @@
             "name": "idR",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "nome": {
+                        "type": "string" 
+                      },
+                      "mesa": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "idPrato": {
+                        "type": "string"
+                      },
+                      "quantidade": {
+                        "type": "integer"
+                      },
+                      "observacao": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+            
           }
         ],
         "responses": {

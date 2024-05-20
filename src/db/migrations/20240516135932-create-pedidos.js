@@ -20,7 +20,7 @@ module.exports = {
         onUpdate: 'CASCADE'
       },
       numeroPedido: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(3).ZEROFILL,
         allowNull: false
       },
       finalizado: {

@@ -28,7 +28,7 @@ class PedidoRepository {
         }
     }
 
-    async delete(idR) {
+    /*async delete(idR) {
         try {
             await db.pedidos.destroy({
                 include: [{
@@ -42,7 +42,7 @@ class PedidoRepository {
             console.error(error)
             throw new Error('Não foi possível deletar!');
         }
-    }
+    }*/
 
     async findById(idP) {
         try {
