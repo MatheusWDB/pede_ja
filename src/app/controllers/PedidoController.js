@@ -31,11 +31,7 @@ class PedidoController {
         res.status(200).json(pedidos)
     }
   
-    /*async delete(req, res) {
-        const idR = req.params.idR
-        await PedidoRepository.delete(idR)
-        res.status(202).send("Todos os pedidos finalizados foram deletados!")        
-    }*/
+    
 
     async show(req, res) { 
         const idP = req.params.idP
@@ -86,6 +82,12 @@ class PedidoController {
         await PedidoRepository.create(pedido, idR)
         res.status(201).send("Pedido realizado com sucesso!")          
     }
+    
+    /*async delete(req, res) {
+        const idR = req.params.idR
+        await PedidoRepository.delete(idR)
+        res.status(202).send("Todos os pedidos finalizados foram deletados!")        
+    }*/
 }
 
 module.exports = new PedidoController()

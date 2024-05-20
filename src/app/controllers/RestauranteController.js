@@ -7,66 +7,66 @@ class RestauranteController {
         const verificar = await RestauranteRepository.verify(cadastro)
         if(verificar) {
             if (verificar.cnpj === cadastro.cnpj){
-                return res.status(400).send('Cnpj já cadastrado!')
+                return res.status(400).json({Erro: 'Cnpj já cadastrado!'})
             } 
             if (verificar.email === cadastro.email){
-                return res.status(400).send('Email já cadastrado!')      
+                return res.status(400).json({Erro: 'Email já cadastrado!'})      
             }
             if (verificar.telefone === cadastro.telefone){
-                return res.status(400).send('Telefone já cadastrado!') 
+                return res.status(400).json({Erro: 'Telefone já cadastrado!'}) 
             }
         }
         await RestauranteRepository.create(cadastro)
 
-        res.status(200).send('Estabelecimento cadastrado')
+        res.status(200).json('Estabelecimento cadastrado')
 
     }
     
     async login(req, res){
         const login = { cnpj: null, senha: req.body.senha, email: req.body.email, telefone: null}
         const verificar = await RestauranteRepository.verify(login)
-        if(verificar.email === null) {
-            return res.status(400).json('Email não cadastrado!')
+        console.log(verificar.email)
+        if(verificar.email !== login.email) {
+            return res.status(400).json({Erro: 'Email não cadastrado!'})
         } else if (login.senha !== verificar.senha){
-            return res.status(401).json('Senha incorreta!')
+            return res.status(401).json({Erro: 'Senha incorreta!'})
         }
 
         const idR = await RestauranteRepository.findId(login.email)
         res.status(202).json( {idRestaurante: idR} )
     }    
 
-    async recover(req, res){
+    /*async recover(req, res){
         const cnpj = { cnpj: req.body.cnpj, senha: null, email: null, telefone: null}
         const verificar = await RestauranteRepository.verify(cnpj)
 
         if (verificar.cnpj === null) {
-            return res.status(400).json('Cnpj não cadastrado!')
+            return res.status(400).json({Erro: 'Cnpj não cadastrado!'})
         }
 
-        res.status(200).send(verificar.email)
+        res.status(200).json(verificar.email)
     }
         
-    /*async logout(req, res){
+    async logout(req, res){
         blacklist.push(req.headers['x-access-token'])
         res.status(200).end()
     }
-    */
 
     async updateRestaurante(req, res) {  
         const idR = req.params.idR
         const restaurante = req.body
         const resposta = await RestauranteRepository.updateRestaurante(restaurante, idR)
-        res.status(200).send(resposta)
+        res.status(200).json(resposta)
     }
 
     async updateLogo(req, res) {
         const idR = req.params.idR
         const logo = req.body
         const resposta = await RestauranteRepository.updateLogo(logo, idR)
-        res.status(200).send(resposta)
+        res.status(200).json(resposta)
     }
     
-    /*async show(req, res){
+    async show(req, res){
         const id = req.params.idR
         const row = await RestauranteRepository.findById(id)
         res.status(200).json(row)

@@ -25,7 +25,6 @@ class RestauranteRepository {
                 email: restaurante ? restaurante.email : null,                
                 telefone: telefone ? telefone.telefone : null
               };
-          
             return resultado;
 
         } catch (error) {
@@ -65,7 +64,7 @@ class RestauranteRepository {
         }
     }
 
-    async updateRestaurante(restaurante, idR) {
+    /*async updateRestaurante(restaurante, idR) {
         try {            
             await db.restaurantes.update(restaurante, {
                 where: { idRestaurante: idR }
@@ -77,9 +76,9 @@ class RestauranteRepository {
             console.error(error)
             throw new Error('Não foi possível atualizar!');
         }
-    }
+    }*/
     
-    async updateLogo(logo, idR) {
+    /*async updateLogo(logo, idR) {
         try {            
             const restaurante = await db.restaurantes.findByPk(idR)
             
@@ -100,7 +99,7 @@ class RestauranteRepository {
             console.error(error)
             throw new Error('Não foi possível atualizar!');
         }
-    }
+    }*/
     
     /*async findById(id) {
         try {

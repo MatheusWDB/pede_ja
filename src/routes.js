@@ -11,13 +11,13 @@ const RestauranteController = modules.class
         //
 router.post('/cadastro', RestauranteController.register)
 router.post('/login', RestauranteController.login)
-router.post('/recuperar_senha', RestauranteController.recover)
+//router.post('/recuperar_senha', RestauranteController.recover)
 //router.post('/logout', RestauranteController.logout)
 
         //Perfil
 //router.get('/:idR', RestauranteController.show)
-router.put('/:idR', RestauranteController.updateRestaurante)
-router.put('/:idR', RestauranteController.updateLogo)
+//router.put('/:idR', RestauranteController.updateRestaurante)
+//router.put('/:idR', RestauranteController.updateLogo)
 
                 
                 //PRATOS
