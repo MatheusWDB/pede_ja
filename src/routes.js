@@ -18,7 +18,9 @@ const mock = {
 
                 // Documentação
 router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-router.get('/mock', mock)
+router.get('/mock', (req, res) => {
+        res.json(mock)
+})
 
                 //RESTAURANTES
 
