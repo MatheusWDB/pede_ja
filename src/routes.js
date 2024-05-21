@@ -4,12 +4,21 @@ const modules = require('./app/controllers/RestauranteController.js')
 const PedidoController = require('./app/controllers/PedidoController.js')
 const swaggerUi = require( 'swagger-ui-express')
 const swaggerDocument = require( './swagger/swagger_output.json')
+const RestauranteController = modules.class
 
 const router = Router()
-const RestauranteController = modules.class
+
+const mock = {
+        Felipe: 'Garoto de programa',
+        Cauã: 'Gigolô',
+        Gustavo: 'Caveirinha',
+        Ruan: 'Falso crente'
+}
+
 
                 // Documentação
 router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+router.get('/mock', mock)
 
                 //RESTAURANTES
 
