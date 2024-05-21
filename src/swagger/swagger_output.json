@@ -5,10 +5,10 @@
     "title": "Pede Já",
     "description": "Cardápio digital"
   },
-  "host": "https://pede-ja.onrender.com",
+  "host": "pede-ja.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/cadastro": {
