@@ -2,9 +2,14 @@ const Router = require('express')
 const PratoController = require('./app/controllers/PratoController.js')
 const modules = require('./app/controllers/RestauranteController.js')
 const PedidoController = require('./app/controllers/PedidoController.js')
+const swaggerUi = require( 'swagger-ui-express')
+const swaggerDocument = require( './swagger/swagger_output.json')
 
 const router = Router()
 const RestauranteController = modules.class
+
+                // Documentação
+router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
                 //RESTAURANTES
 
