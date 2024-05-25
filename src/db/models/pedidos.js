@@ -2,36 +2,38 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class pedidos extends Model {
-    
+
     static associate(models) {
-      
+
       this.belongsTo(models.clientes, {
-        foreignKey: { 
+        foreignKey: {
           name: 'idCliente',
           allowNull: false
         }
-    })
-    
-    this.belongsToMany(models.pratos, { 
-      through: models.pedidoPratos, 
-      foreignKey: { 
-        name: 'idPedido',
-        allowNull: false
-      }
-    })
-    
-    this.hasMany(models.pedidoPratos, { 
-      as: 'pedido_pedidoPrato',
-      foreignKey: { 
-        name: 'idPedido',
-        allowNull: false
-      }
-      
-    })
+      })
+
+      this.belongsToMany(models.pratos, {
+        through: models.pedidoPratos,
+        foreignKey: {
+          name: 'idPedido',
+          allowNull: false
+        }
+      })
+
+      this.hasMany(models.pedidoPratos, {
+        as: 'pedido_pedidoPrato',
+        foreignKey: {
+          name: 'idPedido',
+          allowNull: false
+        }
+
+      })
     }
   }
+
   pedidos.init({
     idPedido: {
       allowNull: false,
@@ -55,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     finalizado: {
       allowNull: false,
-      type: DataTypes.ENUM('V','F'),
+      type: DataTypes.ENUM('V', 'F'),
       defaultValue: 'F'
     }
   }, {

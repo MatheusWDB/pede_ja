@@ -2,9 +2,10 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class imagemRestaurantes extends Model {
-    
+
     static associate(models) {
       this.belongsTo(models.restaurantes, {
         foreignKey: {
@@ -13,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       })
     }
   }
+
   imagemRestaurantes.init({
     idImgRestaurante: {
       primaryKey: true,

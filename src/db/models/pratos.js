@@ -2,41 +2,41 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class pratos extends Model {
-    
     static associate(models) {
-
-      this.belongsToMany(models.pedidos, { 
+      this.belongsToMany(models.pedidos, {
         through: models.pedidoPratos,
-        foreignKey: { 
+        foreignKey: {
           name: 'idPrato',
           allowNull: false
         }
       })
 
-      this.belongsToMany(models.ingredientes, { 
-        through: models.pratoIngredientes, 
-        foreignKey: { 
+      this.belongsToMany(models.ingredientes, {
+        through: models.pratoIngredientes,
+        foreignKey: {
           name: 'idPrato',
           allowNull: false
         }
       })
 
       this.belongsTo(models.restaurantes, {
-        foreignKey: { 
+        foreignKey: {
           name: 'idRestaurante',
           allowNull: false
         }
-    })
-      
+      })
+
       this.belongsTo(models.imagemPratos, {
-        foreignKey: { 
+        foreignKey: {
           name: 'idImgPrato',
         }
-    })
+      })
     }
   }
+
   pratos.init({
     idPrato: {
       allowNull: false,
@@ -60,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     valor: {
       allowNull: false,
-      type: DataTypes.DECIMAL(10,2)
+      type: DataTypes.DECIMAL(10, 2)
     },
     idImgPrato: {
       type: DataTypes.INTEGER,

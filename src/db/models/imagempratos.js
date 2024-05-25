@@ -2,11 +2,12 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class imagemPratos extends Model {
-    
+
     static associate(models) {
-      
+
       this.hasMany(models.pratos, {
         foreignKey: {
           name: "idImgPrato"
@@ -14,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       })
     }
   }
+
   imagemPratos.init({
     idImgPrato: {
       primaryKey: true,

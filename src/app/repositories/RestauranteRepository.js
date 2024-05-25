@@ -2,11 +2,10 @@ const db = require('./../../db/models')
 const { Op } = require('sequelize');
 
 class RestauranteRepository {
-    
     async verify(cadastrado) {
         try {
-            const restaurante = await db.restaurantes.findOne({ 
-                where: { 
+            const restaurante = await db.restaurantes.findOne({
+                where: {
                     [Op.or]: [
                         { cnpj: cadastrado.cnpj },
                         { email: cadastrado.email },
@@ -22,23 +21,23 @@ class RestauranteRepository {
             const resultado = {
                 cnpj: restaurante ? restaurante.cnpj : null,
                 senha: restaurante ? restaurante.senha : null,
-                email: restaurante ? restaurante.email : null,                
+                email: restaurante ? restaurante.email : null,
                 telefone: telefone ? telefone.telefone : null
-              };
+            };
             return resultado;
 
         } catch (error) {
             console.error(error)
             throw new Error('Erro ao verificar os dados');
         }
-    } 
+    }
 
     async findId(email) {
         try {
-            const idR = await db.restaurantes.findOne({where: {email: email}})
+            const idR = await db.restaurantes.findOne({ where: { email: email } })
 
             return idR.idRestaurante
-            
+
         } catch (error) {
             console.error(error)
             throw new Error('Erro ao verificar os dados')
@@ -50,13 +49,13 @@ class RestauranteRepository {
             const telefone = cadastro.telefone
             delete cadastro.telefone
             const restaurante = await db.restaurantes.create(cadastro)
-            await db.telefonesRestaurante.create({ 
+            await db.telefonesRestaurante.create({
                 idRestaurante: restaurante.idRestaurante,
                 telefone: telefone
-                
+
             })
 
-            return("Estabelecimento cadstrado")
+            return ("Estabelecimento cadstrado")
 
         } catch (error) {
             console.error(error)
@@ -77,7 +76,7 @@ class RestauranteRepository {
             throw new Error('Não foi possível atualizar!');
         }
     }*/
-    
+
     /*async updateLogo(logo, idR) {
         try {            
             const restaurante = await db.restaurantes.findByPk(idR)
@@ -100,7 +99,7 @@ class RestauranteRepository {
             throw new Error('Não foi possível atualizar!');
         }
     }*/
-    
+
     /*async findById(id) {
         try {
             return await Restaurante.findOne({ where: { idRestaurante: id } });

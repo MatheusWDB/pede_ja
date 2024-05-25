@@ -8,19 +8,8 @@ const RestauranteController = modules.class
 
 const router = Router()
 
-const mock = {
-        Felipe: 'Garoto de programa',
-        Cauã: 'Gigolô',
-        Gustavo: 'Caveirinha',
-        Ruan: 'Falso crente'
-}
-
-
                 // Documentação
 router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-router.get('/mock', (req, res) => {
-        res.json(mock)
-})
 
                 //RESTAURANTES
 
@@ -35,7 +24,6 @@ router.post('/login', RestauranteController.login)
 //router.put('/:idR', RestauranteController.updateRestaurante)
 //router.put('/:idR', RestauranteController.updateLogo)
 
-                
                 //PRATOS
 
         //Cardápio (restaurante)
@@ -62,7 +50,4 @@ router.delete('/:idR/pedidos/:idP',  PedidoController.deleteById)
 //router.get('/:idR/cliente/pedido/:idC', PedidoController.index)
 router.post('/:idR/cliente/realizar_pedido', PedidoController.store)
 
-                
-
 module.exports = router
-

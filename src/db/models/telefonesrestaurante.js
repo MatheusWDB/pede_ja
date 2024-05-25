@@ -2,11 +2,12 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class telefonesRestaurante extends Model {
     static associate(models) {
       this.belongsTo(models.restaurantes, {
-        foreignKey: { 
+        foreignKey: {
           name: 'idRestaurante',
           primaryKey: true,
           allowNull: false
@@ -14,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       })
     }
   }
-  
+
   telefonesRestaurante.init({
     idTelefone: {
       allowNull: false,

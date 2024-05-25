@@ -2,25 +2,27 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class pratoIngredientes extends Model {
-    
+
     static associate(models) {
-      
+
       this.belongsTo(models.pratos, {
-        foreignKey: { 
+        foreignKey: {
           name: 'idPrato',
           allowNull: false
         }
       })
       this.belongsTo(models.ingredientes, {
-        foreignKey: { 
+        foreignKey: {
           name: 'idIngrediente',
           allowNull: false
         }
       })
     }
   }
+
   pratoIngredientes.init({
     idPrato: {
       allowNull: false,

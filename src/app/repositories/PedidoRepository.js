@@ -1,7 +1,6 @@
 const db = require('./../../db/models')
 
 class PedidoRepository {
-     
     async findAll(idR) {
         try {
             return await db.pedidos.findAll({
@@ -11,15 +10,15 @@ class PedidoRepository {
                     },
                     {
                         model: db.pratos,
-                        where: { idRestaurante: idR }, 
+                        where: { idRestaurante: idR },
                         through: {
                             model: db.pedidoPratos
                         },
                         include: {
                             model: db.ingredientes
                         }
-                    }                   
-                ]                                
+                    }
+                ]
             })
 
         } catch (error) {
@@ -59,7 +58,7 @@ class PedidoRepository {
                         include: {
                             model: db.ingredientes
                         }
-                    }                   
+                    }
                 ],
                 where: { idPedido: idP }
             })
@@ -80,30 +79,30 @@ class PedidoRepository {
             pedido.finalizado = pedido.finalizado === 'V' ? 'F' : 'V';
             await pedido.save();
 
-            return('Pedido atualizado')
+            return ('Pedido atualizado')
 
         } catch (error) {
             throw new Error('Não foi possível atualizar!');
         }
-    } 
-    
+    }
+
     async deleteById(idP) {
         try {
             const pedido = await db.pedidos.findOne({
                 include: {
                     model: db.pratos
                 },
-                where: { 
+                where: {
                     idPedido: idP,
-                    finalizado: 'V'                    
-                } 
+                    finalizado: 'V'
+                }
             })
-            
-            if(pedido) {
+
+            if (pedido) {
                 await pedido.destroy()
-                return("Pedido deletado")
+                return ("Pedido deletado")
             } else {
-                return("Pedido não finalizado")
+                return ("Pedido não finalizado")
             }
 
         } catch (error) {
@@ -116,15 +115,15 @@ class PedidoRepository {
         try {
             // Inserir cliente se não existir
             let [cliente, created] = await db.clientes.findOrCreate({
-                where: { 
-                    nome: pedido[0].nome, 
-                    telefone: pedido[0].telefone 
+                where: {
+                    nome: pedido[0].nome,
+                    telefone: pedido[0].telefone
                 },
-                defaults: { 
-                    nome: pedido[0].nome, 
+                defaults: {
+                    nome: pedido[0].nome,
                     telefone: pedido[0].telefone,
                     mesa: pedido[0].mesa
-                 }
+                }
             });
 
             if (!created) {
@@ -137,30 +136,30 @@ class PedidoRepository {
                     model: db.pratos,
                     where: { idRestaurante: idR }
                 }],
-                order: [[ 'numeroPedido', 'DESC' ]]
-                
-              });
+                order: [['numeroPedido', 'DESC']]
+
+            });
 
             const numeroPedido = lastPedido ? lastPedido.numeroPedido + 1 : 1;
-            
+
             // Inserir novo pedido
-            let novoPedido = await db.pedidos.create({ 
+            let novoPedido = await db.pedidos.create({
                 idCliente: cliente.idCliente,
                 numeroPedido
             });
 
             // Inserir detalhes do pedido na tabela PedidoPrato
             for (let i = 1; i < pedido.length; i++) {
-                await db.pedidoPratos.create({ 
-                    idPedido: novoPedido.idPedido, 
+                await db.pedidoPratos.create({
+                    idPedido: novoPedido.idPedido,
                     idPrato: pedido[i].idPrato,
                     quantidade: pedido[i].quantidade,
                     observacao: pedido[i].observacao
                 });
             }
 
-            return('Pedido realizado')
-        
+            return ('Pedido realizado')
+
         } catch (error) {
             console.error(error)
             throw new Error('Não foi possível realizar o pedido!');

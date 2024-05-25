@@ -2,30 +2,33 @@
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class restaurantes extends Model {
     static associate(models) {
-      
       this.hasMany(models.pratos, {
-        foreignKey: { 
+        foreignKey: {
           name: 'idRestaurante',
-          allowNull: false
-        }
-      })
-      this.hasMany(models.telefonesRestaurante, {
-        foreignKey: { 
-          name: 'idRestaurante',
-          primaryKey: true,
           allowNull: false
         }
       }),
-      this.belongsTo(models.imagemRestaurantes, {
-        foreignKey: { 
-          name: 'idImgRestaurante'
-        }
-      })
+
+        this.hasMany(models.telefonesRestaurante, {
+          foreignKey: {
+            name: 'idRestaurante',
+            primaryKey: true,
+            allowNull: false
+          }
+        }),
+
+        this.belongsTo(models.imagemRestaurantes, {
+          foreignKey: {
+            name: 'idImgRestaurante'
+          }
+        })
     }
   }
+
   restaurantes.init({
     idRestaurante: {
       allowNull: false,
@@ -52,16 +55,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     idImgRestaurante: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'imagemRestaurantes',
-          key: 'idImgRestaurante'
-        },
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      
-      }
-    }, {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'imagemRestaurantes',
+        key: 'idImgRestaurante'
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
+
+    }
+  }, {
     sequelize,
     modelName: 'restaurantes',
   });

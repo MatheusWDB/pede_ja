@@ -25,7 +25,7 @@ module.exports = {
       },
       finalizado: {
         allowNull: false,
-        type: Sequelize.ENUM('V','F'),
+        type: Sequelize.ENUM('V', 'F'),
         defaultValue: 'F'
       },
       createdAt: {
