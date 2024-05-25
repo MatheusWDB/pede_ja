@@ -1,19 +1,19 @@
-const RestauranteRepository = require( '../repositories/RestauranteRepository.js')
+const RestauranteRepository = require('../repositories/RestauranteRepository.js')
 
-class RestauranteController { 
-    
-    async register(req, res){
+class RestauranteController {
+
+    async register(req, res) {
         const cadastro = req.body
         const verificar = await RestauranteRepository.verify(cadastro)
-        if(verificar) {
-            if (verificar.cnpj === cadastro.cnpj){
-                return res.status(400).json({Erro: 'Cnpj já cadastrado!'})
-            } 
-            if (verificar.email === cadastro.email){
-                return res.status(400).json({Erro: 'Email já cadastrado!'})      
+        if (verificar) {
+            if (verificar.cnpj === cadastro.cnpj) {
+                return res.status(400).json({ Erro: 'Cnpj já cadastrado!' })
             }
-            if (verificar.telefone === cadastro.telefone){
-                return res.status(400).json({Erro: 'Telefone já cadastrado!'}) 
+            if (verificar.email === cadastro.email) {
+                return res.status(400).json({ Erro: 'Email já cadastrado!' })
+            }
+            if (verificar.telefone === cadastro.telefone) {
+                return res.status(400).json({ Erro: 'Telefone já cadastrado!' })
             }
         }
         await RestauranteRepository.create(cadastro)
@@ -21,20 +21,20 @@ class RestauranteController {
         res.status(200).json('Estabelecimento cadastrado')
 
     }
-    
-    async login(req, res){
-        const login = { cnpj: null, senha: req.body.senha, email: req.body.email, telefone: null}
+
+    async login(req, res) {
+        const login = { cnpj: null, senha: req.body.senha, email: req.body.email, telefone: null }
         const verificar = await RestauranteRepository.verify(login)
         console.log(verificar.email)
-        if(verificar.email !== login.email) {
-            return res.status(400).json({Erro: 'Email não cadastrado!'})
-        } else if (login.senha !== verificar.senha){
-            return res.status(401).json({Erro: 'Senha incorreta!'})
+        if (verificar.email !== login.email) {
+            return res.status(400).json({ Erro: 'Email não cadastrado!' })
+        } else if (login.senha !== verificar.senha) {
+            return res.status(401).json({ Erro: 'Senha incorreta!' })
         }
 
         const idR = await RestauranteRepository.findId(login.email)
-        res.status(202).json( {idRestaurante: idR} )
-    }    
+        res.status(202).json({ idRestaurante: idR })
+    }
 
     /*async recover(req, res){
         const cnpj = { cnpj: req.body.cnpj, senha: null, email: null, telefone: null}
@@ -71,7 +71,7 @@ class RestauranteController {
         const row = await RestauranteRepository.findById(id)
         res.status(200).json(row)
     }*/
-      
+
 }
 
 module.exports.class = new RestauranteController()

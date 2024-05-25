@@ -7,8 +7,6 @@ const app = express()
 // Ler body com json
 app.use(express.json())
 
-
-
 // Cors
 app.use(cors())
 /*
