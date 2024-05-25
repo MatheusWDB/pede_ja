@@ -4,7 +4,8 @@
   "description": "Cardápio digital",
   "main": "./src/app.js",
   "scripts": {
-    "start": "nodemon ./src/server.js",
+    "start": "node ./src/server.js",
+    "nodemon": "nodemon ./src/server.js",
     "swagger": "node ./src/swagger/swagger.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

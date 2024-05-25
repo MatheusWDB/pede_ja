@@ -179,13 +179,13 @@
             "name": "idR",
             "in": "path",
             "required": false,
-            "type": "integer"
+            "type": "string"
           },
           {
             "name": "idPr",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "string"
           },
           {
             "name": "body",
@@ -228,13 +228,13 @@
             "name": "idR",
             "in": "path",
             "required": false,
-            "type": "integer"
+            "type": "string"
           },
           {
             "name": "idPr",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "string"
           }
         ],
         "responses": {
@@ -315,13 +315,13 @@
             "name": "idR",
             "in": "path",
             "required": false,
-            "type": "integer"
+            "type": "string"
           },
           {
             "name": "idP",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "string"
           }
         ],
         "responses": {
@@ -337,13 +337,13 @@
             "name": "idR",
             "in": "path",
             "required": false,
-            "type": "integer"
+            "type": "string"
           },
           {
             "name": "idP",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "string"
           }
         ],
         "responses": {
@@ -375,7 +375,7 @@
                     "type": "object",
                     "properties": {
                       "nome": {
-                        "type": "string"
+                        "type": "string" 
                       },
                       "mesa": {
                         "type": "integer"
@@ -399,6 +399,7 @@
                 ]
               }
             }
+            
           }
         ],
         "responses": {
