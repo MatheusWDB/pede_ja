@@ -21,7 +21,9 @@ class PedidoController {
                 idPedido: pedido.idPedido,
                 numeroPedido: pedido.numeroPedido,
                 finalizado: pedido.finalizado,
-                mesa: pedido.cliente.mesa,
+                cliente: pedido.cliente.nome,
+                telefone: pedido.cliente.telefone,
+                mesa: pedido.cliente.mesa,                
                 pratos: pratos,
                 valorTotal: valorTotal.toFixed(2)
             }
@@ -29,36 +31,36 @@ class PedidoController {
         res.status(200).json(pedidos)
     }
 
-    async show(req, res) {
-        const idP = req.params.idP
-        let pedido = await PedidoRepository.findById(idP)
-        let valorTotal = 0
-
-        pedido = {
-            idPedido: pedido.idPedido,
-            numeroPedido: pedido.numeroPedido,
-            finalizado: pedido.finalizado,
-            createdAt: pedido.createdAt.toISOString().split('T')[1].split('.')[0],
-            cliente: {
-                nome: pedido.cliente.nome,
-                telefone: pedido.cliente.telefone,
-                mesa: pedido.cliente.mesa
-            },
-            pratos: pedido.pratos.map(prato => {
-                valorTotal += parseFloat(prato.valor * prato.pedidoPratos.quantidade);
-                return {
-                    nome: prato.nome,
-                    valor: prato.valor,
-                    imagem: prato.imagem,
-                    quantidade: prato.pedidoPratos.quantidade,
-                    observacao: prato.pedidoPratos.observacao,
-                    ingredientes: prato.ingredientes.map(ingrediente => ingrediente.ingrediente)
-                }
-            }),
-            valorTotal: valorTotal.toFixed(2)
-        };
-        res.status(200).json(pedido)
-    }
+    /*async show(req, res) {
+         const idP = req.params.idP
+         let pedido = await PedidoRepository.findById(idP)
+         let valorTotal = 0
+ 
+         pedido = {
+             idPedido: pedido.idPedido,
+             numeroPedido: pedido.numeroPedido,
+             finalizado: pedido.finalizado,
+             createdAt: pedido.createdAt.toISOString().split('T')[1].split('.')[0],
+             cliente: {
+                 nome: pedido.cliente.nome,
+                 telefone: pedido.cliente.telefone,
+                 mesa: pedido.cliente.mesa
+             },
+             pratos: pedido.pratos.map(prato => {
+                 valorTotal += parseFloat(prato.valor * prato.pedidoPratos.quantidade);
+                 return {
+                     nome: prato.nome,
+                     valor: prato.valor,
+                     imagem: prato.imagem,
+                     quantidade: prato.pedidoPratos.quantidade,
+                     observacao: prato.pedidoPratos.observacao,
+                     ingredientes: prato.ingredientes.map(ingrediente => ingrediente.ingrediente)
+                 }
+             }),
+             valorTotal: valorTotal.toFixed(2)
+         };
+         res.status(200).json(pedido)
+     }*/
 
     async update(req, res) {
         const idP = req.params.idP

@@ -142,6 +142,7 @@ class PedidoRepository {
 
             const numeroPedido = lastPedido ? lastPedido.numeroPedido + 1 : 1;
 
+            console.log(lastPedido)
             // Inserir novo pedido
             let novoPedido = await db.pedidos.create({
                 idCliente: cliente.idCliente,
