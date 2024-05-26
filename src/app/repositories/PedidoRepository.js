@@ -82,6 +82,7 @@ class PedidoRepository {
             return ('Pedido atualizado')
 
         } catch (error) {
+            console.error(error)
             throw new Error('Não foi possível atualizar!');
         }
     }

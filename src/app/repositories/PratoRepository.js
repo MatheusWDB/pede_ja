@@ -107,6 +107,7 @@ class PratoRepository {
             return ("Prato deletado")
 
         } catch (error) {
+            console.error(error)
             throw new Error('Não foi possível deletar!');
         }
     }
@@ -122,6 +123,7 @@ class PratoRepository {
               })
 
         } catch (error) {
+            console.error(error)
             throw new Error('Não foi possível localizar!');
         }
     }*/

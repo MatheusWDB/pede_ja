@@ -102,6 +102,7 @@ class RestauranteRepository {
         try {
             return await Restaurante.findOne({ where: { idRestaurante: id } });
         } catch (error) {
+            console.error(error)
             throw new Error('Erro ao verificar os dados');
         }
     }*/
