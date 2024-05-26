@@ -9,7 +9,6 @@ class RestauranteRepository {
                     [Op.or]: [
                         { cnpj: cadastrado.cnpj },
                         { email: cadastrado.email },
-                        { senha: cadastrado.senha },
                     ]
                 }
             })
@@ -22,7 +21,6 @@ class RestauranteRepository {
                 cnpj: restaurante ? restaurante.cnpj : null,
                 senha: restaurante ? restaurante.senha : null,
                 email: restaurante ? restaurante.email : null,
-                telefone: telefone ? telefone.telefone : null
             };
             return resultado;
 

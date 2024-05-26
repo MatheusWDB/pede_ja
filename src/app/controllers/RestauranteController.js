@@ -21,9 +21,9 @@ class RestauranteController {
     }
 
     async login(req, res) {
-        const login = { cnpj: null, senha: req.body.senha, email: req.body.email, telefone: null }
+        const login = {  email: req.body.email, senha: req.body.senha,  telefone: null, cnpj: null }
         const verificar = await RestauranteRepository.verify(login)
-        console.log(verificar.email)
+        console.log(verificar)
         if (verificar.email !== login.email) {
             return res.status(400).json({ Erro: 'Email não cadastrado!' })
         } else if (login.senha !== verificar.senha) {
